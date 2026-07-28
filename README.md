@@ -1,19 +1,24 @@
-# mind-garden🌱
-a daily growth garden with task to complete, and let user build streaks, and grow plants from the task completed.
+# Mind Garden 🌱
 
-Purpose:
-A simple daily practice platform where members cultivate habits
-through meditation and Di Zi Gui learning.
+A daily practice companion to cultivate mindfulness and learning through meditation and Di Zi Gui practice.
 
-Current MVP:
-- One-page daily practice interface
-- Meditation Step 1/2/3 audio players
-- Two daily tasks
-- Plant growth illustration
-- Responsive mobile design
+## Current MVP
 
-Future:
-- User login
-- Streak tracking
+- Daily practice checklist
+- Meditation Step 1, 2, 3 audio guidance
+- Di Zi Gui learning task
+- Plant growth visualisation
+
+## Future Plans
+
+- Member accounts
+- Personal streak tracking
 - Community garden
-- Friends progress
+- Friends' growth progress
+
+## Tech Stack
+
+- React
+- Vite
+- Tailwind CSS
+- Supabase (planned)
