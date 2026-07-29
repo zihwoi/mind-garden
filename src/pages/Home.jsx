@@ -1,11 +1,12 @@
 import "../App.css";
-
+import MeditationRoom from "../components/MeditationRoom";
+import PlantCard from "../components/PlantCard";
 function Home() {
   return (
     <div className="game-screen">
       <header>
         <h1>🌱 Mind Garden</h1>
-        <p>Good morning, Zihui</p>
+        <p>Good morning, Zi Hui</p>
       </header>
 
       <main>
@@ -24,30 +25,11 @@ function Home() {
 
               <span>看影片弟子规 Youtube</span>
             </div>
-
           </div>
-
-          <div className="plant">
-            <p>Day 12</p>
-            
-            <div className="pixel-plant">🌱</div>
-
-            <p>Seedling</p>
-
-
-          </div>
+          <PlantCard />
         </section>
 
-        <section className="meditation">
-          <h2>🎧 Meditation Room</h2>
-
-          <button>Step 1 ▶</button>
-
-          <button>Step 2 ▶</button>
-
-          <button>Step 3 ▶</button>
-        </section>
-
+        <MeditationRoom />
         <section className="community">
           <h2>🌍 Community Garden</h2>
 

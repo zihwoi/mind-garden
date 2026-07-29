@@ -1,8 +1,13 @@
+@font-face {
+  font-family: "Zpix";
+  src: url("./assets/fonts/zpix.ttf");
+}
+
 body {
   margin: 0;
   padding: 40px;
   background: #dce8c8;
-  font-family: "Courier New", monospace;
+  font-family: "Pixelify Sans", "Zpix", sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -57,6 +62,20 @@ header p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+}
+
+.plant-status {
+  display: flex;
+  flex-direction: column;
+
+  gap: 25px;
+}
+
+
+.day-count {
+  font-size: 22px;
+  margin-bottom: 15px;
 }
 
 .pixel-plant {
