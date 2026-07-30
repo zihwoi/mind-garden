@@ -2,7 +2,7 @@ function MeditationRoom() {
   return (
     <section className="meditation">
 
-      <h2>🎧 Meditation Room</h2>
+      <h2>Meditation Room</h2>
 
       <div className="audio-card">
         <h3>🌱 Meditation Step 1</h3>
