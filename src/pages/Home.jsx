@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../App.css";
 import MeditationRoom from "../components/MeditationRoom";
 import PlantCard from "../components/PlantCard";
+import SketchBox from "../components/SketchBox";
 
 function getTodayKey() {
   const d = new Date();
@@ -78,6 +79,7 @@ function Home({ user }) {
       </header>
 
       <main>
+        <SketchBox>
         <section className="garden-area">
           <div className="tasks">
             <h2>Today's Practice</h2>
@@ -111,8 +113,13 @@ function Home({ user }) {
           </div>
           <PlantCard streak={streak} allDone={allDone } />
         </section>
+        </SketchBox>
 
+        <SketchBox>
         <MeditationRoom />
+        </SketchBox>
+        
+        <SketchBox>
         <section className="community">
           <h2>🌍 Community Garden</h2>
 
@@ -120,7 +127,8 @@ function Home({ user }) {
             {streak} {streak === 1 ? "day" : "days"} streak ·{" "}
             {allDone ? "Completed three tasks today! 🎉" : "Keep growing 🌱"}
           </p>
-        </section>
+        </section> 
+        </SketchBox>
       </main>
     </div>
   );

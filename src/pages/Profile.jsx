@@ -122,7 +122,7 @@ function Profile({ user }) {
                 {day.dizigui && <span className="badge dzg">📖</span>}
                 {day.reflection && <span className="badge reflection">✍️</span>}
                 {!day.meditation && !day.dizigui && !day.reflection && (
-                  <span className="badge none">Rest day</span>
+                  <span className="badge none">Haven't do anything</span>
                 )}
               </div>
             </div>
