@@ -24,14 +24,16 @@ body {
   padding: 16px;
   background: #f7f1dc;
   border: 4px solid #4b3621;
+  border-radius: 3px;
 }
 
 /* header */
 
 header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 54px;
 }
+
 
 header h1 {
   margin: 0;
@@ -102,7 +104,6 @@ button {
   display: flex;
   width: 100%;
   box-sizing: border-box;
-
   align-items: flex-start;
   gap: 10px;
 
@@ -480,7 +481,7 @@ button {
 
 /* ========== MAIN APP LAYOUT ========== */
 main.with-nav {
-  padding-bottom: 80px;
+  padding-bottom: 40px;
 }
 
 /* Streak numbers (89, 12, 45, etc.) — Dancing Script */
@@ -560,102 +561,27 @@ main.with-nav {
 .member-info {
   flex: 1;
   min-width: 0;
-}
-
-/* =========================
+}/* =========================
    SKETCH SECTION BOX
    ========================= */
 
 .sketch-box {
   position: relative;
   width: 100%;
-  margin: 20px 0;
-  background: #fff8e7;
-  border-radius: 20px;
-  overflow: visible;
+  box-sizing: border-box;
+
+  border-style: solid;
+  border-width: 55px 30px;
+  border-image-slice: 130 90 fill;
+  border-image-width: 65px 37px;  
+  border-image-repeat: stretch;
+
+  background: transparent;
+  padding: 10px;          /* your breathing room — this is correct, keep it */
+  margin: -63px 0 -15px ; 
 }
 
-.sketch-border {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
 
-.sketch-content {
-  position: relative;
-  z-index: 2;
-  padding: 24px;
-}
-
-.sketch-corner,
-.sketch-top,
-.sketch-bottom,
-.sketch-left,
-.sketch-right {
-  position: absolute;
-  display: block;
-  pointer-events: none;
-}
-
-.sketch-corner {
-  position: absolute;
-  width: 45px;
-  height: 30px;
-  z-index: 2;
-}
-
-.sketch-corner-tl {
-  top: 0;
-  left: 0;
-}
-
-.sketch-corner-tr {
-  top: 0;
-  right: 0;
-}
-
-.sketch-corner-bl {
-  bottom: 0;
-  left: 0;
-}
-
-.sketch-corner-br {
-  bottom: 0;
-  right: 0;
-}
-
-.sketch-top,
-.sketch-bottom {
-  left: 10px;
-  width: calc(100% - 20px);
-  height: 10px;
-  object-fit: fill;
-  z-index: 2;
-}
-
-.sketch-top {
-  top: -2px;
-}
-
-.sketch-bottom {
-  bottom:-2px;
-}
-
-.sketch-left,
-.sketch-right {
- position: absolute;
-  top: 10px;
-  height: calc(100% - 20px);
-  width: 12px;
-  object-fit: fill;
-  z-index: 2;
-}
-
-.sketch-left {
-  left: -5px;
-}
-
-.sketch-right {
-  right: -4px;
+.sketch-content audio {
+  width: 100%;
 }
