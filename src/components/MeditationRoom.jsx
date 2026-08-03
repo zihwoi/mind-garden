@@ -5,7 +5,7 @@ function MeditationRoom() {
       <h2>Meditation Room</h2>
 
       <div className="audio-card">
-        <h3>🌱 Meditation Step 1</h3>
+        <h3>🌱 心法步骤 Step 1</h3>
 
         <audio controls>
           <source 
@@ -16,7 +16,7 @@ function MeditationRoom() {
       </div>
 
       <div className="audio-card">
-        <h3>🌿 Meditation Step 2</h3>
+        <h3>🌿 心法步骤 Step 2</h3>
 
         <audio controls>
           <source 
@@ -27,7 +27,7 @@ function MeditationRoom() {
       </div>
 
        <div className="audio-card">
-        <h3>🌿 Meditation Step 3</h3>
+        <h3>🌿 心法步骤 Step 3</h3>
 
         <audio controls>
           <source 

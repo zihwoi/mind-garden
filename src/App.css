@@ -25,15 +25,15 @@ body {
   background: #f7f1dc;
   border: 4px solid #4b3621;
   border-radius: 3px;
+  padding-bottom: 40px;
 }
 
 /* header */
 
 header {
   text-align: center;
-  margin-bottom: 54px;
+  margin-bottom: 40px;
 }
-
 
 header h1 {
   margin: 0;
@@ -294,9 +294,9 @@ button {
 .summary-card {
   flex: 1;
   background: #fff8e7;
-  border: 3px solid #4b3621;
   padding: 14px;
   text-align: center;
+  margin-top: 10px;
 }
 
 .summary-number {
@@ -312,62 +312,76 @@ button {
 }
 
 .members-list {
-  border: 4px solid #4b3621;
-  padding: 16px;
-  background: #fff8e7;
+  padding: 4px;
+  width: 100%;
+  padding-top: 20px;
 }
 
 .members-list h2 {
   margin-top: 0;
   font-size: 18px;
+
 }
 
 .member-row {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 12px;
-  margin-bottom: 8px;
-  background: #f7f1dc;
-  border: 2px solid #4b3621;
-  margin-left: -2px;
+  flex-wrap: nowrap;
+  gap: 10px; /* reduced from 12px, tighter fit */
+  padding: 4px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0; /* critical: lets flex children shrink instead of overflow */
 }
 
 .member-rank {
   font-weight: bold;
   font-size: 18px;
   width: 30px;
+  flex-shrink: 0;
   color: #7aa35a;
 }
 
 .member-plant {
-  font-size: 32px;
+  flex-shrink: 0;
 }
 
 .member-info {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  min-width: 0; /* lets name/watered-text shrink instead of pushing siblings out */
 }
 
 .member-name {
   font-weight: bold;
   font-size: 15px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .member-streak {
   font-size: 12px;
   color: #666;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
 }
 
 .member-today {
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-direction: column; /* stacks children top-to-bottom instead of left-to-right */
+  align-items: flex-start; /* or center, depending on how you want them aligned */
+  gap: 6px; /* space between each stacked icon */
   flex-shrink: 0;
-  white-space: nowrap;
-  margin-left: 12px;
+}
+
+.member-tasks {
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column; /* stacks the two spans on separate lines */
+  gap: 2px;
 }
 
 .member-count {
@@ -561,7 +575,8 @@ main.with-nav {
 .member-info {
   flex: 1;
   min-width: 0;
-}/* =========================
+}
+/* =========================
    SKETCH SECTION BOX
    ========================= */
 
@@ -573,15 +588,56 @@ main.with-nav {
   border-style: solid;
   border-width: 55px 30px;
   border-image-slice: 130 90 fill;
-  border-image-width: 65px 37px;  
+  border-image-width: 65px 37px;
   border-image-repeat: stretch;
 
   background: transparent;
-  padding: 10px;          /* your breathing room — this is correct, keep it */
-  margin: -63px 0 -15px ; 
+  padding: 4px;
+  margin: -33px 0 -45px;
 }
-
 
 .sketch-content audio {
   width: 100%;
+  margin-bottom: 15px;
+}
+.sketch-box-row {
+  width: 100%;
+  box-sizing: border-box;
+  border-width: 45px 22px; /* increased from 16px 8px */
+  border-image-slice: 140 100 fill;
+  border-image-width: 45px 22px;
+  border-image-repeat: stretch;
+  padding: 2px;
+  background: #f7f1dc;
+  margin-top: 10px;
+}
+
+.sketch-box-row:first-of-type {
+  margin-top: -15px;
+}
+
+.sketch-box-row .sketch-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px 0px;
+  display: block;
+}
+
+.sketch-box-large {
+  width: calc(100% + 40px);
+  margin-left: -20px;
+}
+
+.sketch-box-large .member-plant img {
+  width: 56px;
+  height: 56px;
+}
+
+.sketch-box-large .member-today span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.sketch-box-row:last-of-type {
+  margin-bottom: 4px; /* small buffer before the outer frame's bottom line */
 }

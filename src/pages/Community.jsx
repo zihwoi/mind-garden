@@ -1,4 +1,5 @@
 import "../App.css";
+import SketchBox from "../components/SketchBox";
 import seedIdle from "../assets/illustration/seed_idle.gif";
 
 const members = [
@@ -8,31 +9,42 @@ const members = [
     today: { med: true, dzg: true, reflection: true },
   },
   {
-    name: "Aunt Mei",
+    name: "Ming Hui",
     streak: 45,
     today: { med: true, dzg: true, reflection: true },
   },
   {
-    name: "Cousin Wei",
+    name: "Elle Wong",
     streak: 3,
     today: { med: true, dzg: false, reflection: true },
   },
   {
-    name: "Uncle Tan",
+    name: "Jason Boy",
     streak: 7,
     today: { med: false, dzg: true, reflection: false },
   },
   {
-    name: "Grandma",
+    name: "Vincent",
     streak: 89,
     today: { med: true, dzg: true, reflection: true },
   },
 ];
 
+function countTasksDone(today) {
+  return Object.values(today).filter(Boolean).length;
+}
+
 function Community() {
   const completedToday = members.filter(
     (m) => m.today.med && m.today.dzg && m.today.reflection,
   ).length;
+
+  // sort by today's task count first, streak as tiebreaker
+  const sortedMembers = [...members].sort((a, b) => {
+    const taskDiff = countTasksDone(b.today) - countTasksDone(a.today);
+    if (taskDiff !== 0) return taskDiff;
+    return b.streak - a.streak;
+  });
 
   return (
     <div className="game-screen">
@@ -44,44 +56,54 @@ function Community() {
         </p>
       </header>
 
-      <section className="community-summary">
-        <div className="summary-card">
-          <span className="summary-number">{completedToday}</span>
-          <span className="summary-label">Completed Both Today</span>
-        </div>
-        <div className="summary-card">
-          <span className="summary-number">
-            {members.reduce((a, b) => a + b.streak, 0)}
-          </span>
-          <span className="summary-label">Total Streak Days</span>
-        </div>
-      </section>
+      <SketchBox>
+        <section className="community-summary">
+          <div className="summary-card">
+            <span className="summary-number">{completedToday}</span>
+            <span className="summary-label">Completed Today</span>
+          </div>
+          <div className="summary-card">
+            <span className="summary-number">
+              {members.reduce((a, b) => a + b.streak, 0)}
+            </span>
+            <span className="summary-label">Total Streak Days</span>
+          </div>
+        </section>
+      </SketchBox>
 
-      <section className="members-list">
-        <h2>🌻 Fellow Gardeners</h2>
-        {members
-          .sort((a, b) => b.streak - a.streak)
-          .map((member, idx) => (
-            <div key={member.name} className="member-row">
-              <span className="member-rank">#{idx + 1}</span>
-              <span className="member-plant">
-                <img src={seedIdle} alt="Growing seed" />
-              </span>
-              <div className="member-info">
-                <span className="member-name">{member.name}</span>
-                <span className="member-streak">
-                  <span className="streak-number">{member.streak}</span>{" "}
-                  <span className="streak-label">day streak</span>
-                </span>
-              </div>
-              <div className="member-today">
-                {member.today.med && <span title="Meditated">🧘</span>}
-                {member.today.dzg && <span title="Di Zi Gui">📖</span>}
-                {member.today.reflection && <span title="Self reflection">✍️</span>}
-              </div>
-            </div>
-          ))}
-      </section>
+      <SketchBox className="sketch-box-large">
+        <section className="members-list">
+          <h2>🌻 Fellow Gardeners</h2>
+          {sortedMembers.map((member) => {
+            const doneCount = countTasksDone(member.today);
+            return (
+              <SketchBox key={member.name} className="sketch-box-row">
+                <div className="member-row">
+                  <span className="member-plant">
+                    <img src={seedIdle} alt="Growing seed" />
+                  </span>
+                  <div className="member-info">
+                    <span className="member-name">{member.name}</span>
+                    <span className="member-tasks">
+                      <span className="tasks-label">Watered 💧</span>
+                      <span className="tasks-count">
+                        {doneCount} {doneCount === 1 ? "time" : "times"} today
+                      </span>
+                    </span>
+                  </div>
+                  <div className="member-today">
+                    {member.today.med && <span title="Meditated">🧘</span>}
+                    {member.today.dzg && <span title="Di Zi Gui">📖</span>}
+                    {member.today.reflection && (
+                      <span title="Self reflection">✍️</span>
+                    )}
+                  </div>
+                </div>
+              </SketchBox>
+            );
+          })}
+        </section>
+      </SketchBox>
     </div>
   );
 }
