@@ -1,7 +1,16 @@
 import "../App.css";
 import seedIdle from "../assets/illustration/seed_idle.gif";
+import sproutGrowing from "../assets/illustration/sprout.gif";
+
+function getPlantStage(streak) {
+  if (streak >= 7) return { img: sproutGrowing, label: "leafy" }; // swap for a later-stage gif when ready
+  if (streak >= 3) return { img: sproutGrowing, label: "sprout" };
+  return { img: seedIdle, label: "seed" };
+}
 
 function PlantCard({ streak, allDone }) {
+  const stage = getPlantStage(streak);
+
   return (
     <div className="plant">
       <div className="plant-status">
@@ -11,8 +20,8 @@ function PlantCard({ streak, allDone }) {
 
         <img
           className="seed-animation"
-          src={seedIdle}
-          alt="Growing seed"
+          src={stage.img}
+          alt={`Growing plant - ${stage.label} stage`}
         />
 
         <div className="plant-message">

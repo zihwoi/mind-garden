@@ -17,7 +17,7 @@ function Home({ user }) {
   return (
     <div className="game-screen">
       <header>
-        <h1>🌱 宠爱花园游</h1>
+        <h1>🌱 宠爱花园小游戏</h1>
         <p>Good morning, {user || "Friend"}</p>
       </header>
 
