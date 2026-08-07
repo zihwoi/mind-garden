@@ -2,20 +2,20 @@ import "../App.css";
 import seedIdle from "../assets/illustration/seed_idle.gif";
 import sproutGrowing from "../assets/illustration/sprout.gif";
 
-function getPlantStage(streak) {
-  if (streak >= 7) return { img: sproutGrowing, label: "leafy" }; // swap for a later-stage gif when ready
-  if (streak >= 3) return { img: sproutGrowing, label: "sprout" };
+function getPlantStage(growthDays) {
+  if (growthDays >= 7) return { img: sproutGrowing, label: "leafy" };
+  if (growthDays >= 3) return { img: sproutGrowing, label: "sprout" };
   return { img: seedIdle, label: "seed" };
 }
 
-function PlantCard({ streak, allDone }) {
-  const stage = getPlantStage(streak);
+function PlantCard({ growthDays, allDone }) {
+  const stage = getPlantStage(growthDays);
 
   return (
     <div className="plant">
       <div className="plant-status">
         <div className="day-count">
-          {streak} {streak <= 1 ? "day" : "days"}
+          {growthDays} {growthDays <= 1 ? "day" : "days"}
         </div>
 
         <img

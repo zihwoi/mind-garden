@@ -1,6 +1,11 @@
 import { useMemo } from "react";
 import "../App.css";
 
+import meditateIcon from "../assets/icons/meditate.png";
+import diziguiIcon from "../assets/icons/dizigui.png";
+import journalIcon from "../assets/icons/journal.png";
+import completedDaysIcon from "../assets/icons/completed-days.png";
+
 // Read all mindgarden history from localStorage
 function getAllHistory() {
   const history = [];
@@ -22,8 +27,6 @@ function getAllHistory() {
   }
   return history.sort((a, b) => b.date.localeCompare(a.date));
 }
-
-
 
 function calculateCompletedDays(history) {
   return history.filter(
@@ -60,19 +63,28 @@ function Profile({ user }) {
       <section className="stats-grid">
         <div className="stat-card">
           <span className="stat-number">{completedDays}</span>
-          <span className="stat-label">Completed Days 🌱</span>
+          <span className="stat-label">
+            Completed Days{" "}
+            <img src={completedDaysIcon} alt="" className="stat-icon" />
+          </span>
         </div>
         <div className="stat-card">
           <span className="stat-number">{totalMeditations}</span>
-          <span className="stat-label">Meditations 🧘</span>
+          <span className="stat-label">
+            Meditations <img src={meditateIcon} alt="" className="stat-icon" />
+          </span>
         </div>
         <div className="stat-card">
           <span className="stat-number">{totalDizigui}</span>
-          <span className="stat-label">Di Zi Gui 📖</span>
+          <span className="stat-label">
+            Di Zi Gui <img src={diziguiIcon} alt="" className="stat-icon" />
+          </span>
         </div>
         <div className="stat-card">
           <span className="stat-number">{totalReflections}</span>
-          <span className="stat-label">Reflections ✍️</span>
+          <span className="stat-label">
+            Reflections <img src={journalIcon} alt="" className="stat-icon" />
+          </span>
         </div>
       </section>
 
@@ -118,11 +130,26 @@ function Profile({ user }) {
             <div key={day.date} className="history-row">
               <span className="history-date">{day.date.slice(5)}</span>
               <div className="history-badges">
-                {day.meditation && <span className="badge med">🧘</span>}
-                {day.dizigui && <span className="badge dzg">📖</span>}
-                {day.reflection && <span className="badge reflection">✍️</span>}
-                {!day.meditation && !day.dizigui && !day.reflection && (
-                  <span className="badge none">Haven't do anything</span>
+                {day.meditation && (
+                  <img
+                    src={meditateIcon}
+                    alt="Meditated"
+                    className="badge-icon"
+                  />
+                )}
+                {day.dizigui && (
+                  <img
+                    src={diziguiIcon}
+                    alt="Di Zi Gui"
+                    className="badge-icon"
+                  />
+                )}
+                {day.reflection && (
+                  <img
+                    src={journalIcon}
+                    alt="Self reflection"
+                    className="badge-icon"
+                  />
                 )}
               </div>
             </div>

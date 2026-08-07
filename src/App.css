@@ -17,17 +17,66 @@ body {
 }
 
 .game-screen {
-  width: 100%;
-  max-width: 390px;
+  width: 390px;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 16px;
+  padding: 10px 8px;
   background: #f7f1dc;
-  border: 4px solid #4b3621;
-  border-radius: 3px;
+  box-sizing: border-box;
+
+  border-style: solid;
+  border-width: 12px 20px; /* actual reserved layout space — keep this */
+  border-image-source: url("./assets/ui/border/border-outer-cropped.png");
+  border-image-slice: 70 50 fill;
+  border-image-width: 48px 40px; /* rendered much bigger — pushes line to true edges */
+  border-image-repeat: stretch;
+  border-radius: 24px; 
   padding-bottom: 40px;
 }
 
+.member-today-cluster {
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.task-icon-cluster {
+  position: absolute;
+  width: 90px; /* increased from 70px */
+  height: 90px; /* increased from 70px */
+  object-fit: contain;
+}
+
+/* ===== 1 task done ===== */
+.cluster-count-1 {
+  width: 90px;
+  height: 90px;
+}
+
+/* ===== 2 tasks done ===== */
+.cluster-count-2 {
+  width: 155px; /* widened to fit two 90px icons side by side */
+  height: 90px;
+}
+.cluster-count-2 .cluster-pos-2 {
+  left: 65px; /* adjusted gap for bigger icons */
+}
+
+/* ===== 3 tasks done ===== */
+.cluster-count-3 {
+  width: 155px;
+  height: 160px;
+}
+.cluster-count-3 .cluster-pos-1 {
+  left: 32px;
+}
+.cluster-count-3 .cluster-pos-2 {
+  top: 75px;
+}
+.cluster-count-3 .cluster-pos-3 {
+  top: 70px;
+  left: 75px;
+}
 /* header */
 
 header {
@@ -130,11 +179,28 @@ button {
   transform: translateX(-50%);
   width: 390px;
   display: flex;
+  align-items: center;
   justify-content: space-around;
-  padding: 12px 0;
+  padding: 12px 0; /* extra top padding to make room for the divider art */
   background: #f7f1dc;
-  border-top: 4px solid #4b3621;
+  background-image: url("./assets/ui/dividers/section-divider-three.png");
+  background-repeat: no-repeat; /* tile horizontally if the asset is a short strip */
+  background-position: top center;
+  background-size: 110% 8px; /* adjust height to match your divider's thickness */
   z-index: 100;
+}
+
+.bottom-nav::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -3px;
+  width: calc(100% + 3px); /* stretch wider than the container */
+  height: 12px;
+  background-image: url("./assets/ui/dividers/section-divider-three.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
 }
 
 .nav-btn {
@@ -147,7 +213,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center; /* ensures icon+text sit together, centered, not spread apart */
+  gap: 2px;
   opacity: 0.5;
   transition: opacity 0.2s;
 }
@@ -157,8 +224,11 @@ button {
   font-weight: bold;
 }
 
-.nav-btn span {
-  font-size: 20px;
+.nav-icon {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  margin: -14px 0; /* pulls the icon's own whitespace inward */
 }
 
 /* ========== STATS GRID ========== */
@@ -180,7 +250,7 @@ button {
 }
 
 .stat-number {
-  font-size: 28px;
+  font-size: 40px;
   font-weight: bold;
   color: #7aa35a;
 }
@@ -188,6 +258,18 @@ button {
 .stat-label {
   font-size: 12px;
   color: #4b3621;
+  display: flex;
+  flex-direction: column; /* stacks text above icon instead of inline */
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-icon {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-left: 2px;
 }
 
 /* ========== HISTORY ========== */
@@ -237,6 +319,26 @@ button {
   font-size: 12px;
   color: #999;
   font-style: italic;
+}
+
+.badge-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-left: -22px; /* pulls each icon closer to the previous one */
+}
+
+.badge-icon:first-child {
+  margin-left: 0;
+  transform: rotate(-6deg);
+}
+
+.badge-icon:nth-child(2) {
+  transform: rotate(4deg);
+}
+
+.badge-icon:nth-child(3) {
+  transform: rotate(-3deg);
 }
 
 /* ========== PLANT EVOLUTION ========== */
@@ -320,19 +422,25 @@ button {
 .members-list h2 {
   margin-top: 0;
   font-size: 18px;
-
 }
 
 .member-row {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-direction: column;
   gap: 10px; /* reduced from 12px, tighter fit */
   padding: 4px;
   box-sizing: border-box;
   justify-content: space-between;
   width: 100%;
   min-width: 0; /* critical: lets flex children shrink instead of overflow */
+}
+
+.member-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 .member-rank {
@@ -377,11 +485,11 @@ button {
 }
 
 .member-tasks {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  display: flex;
-  flex-direction: column; /* stacks the two spans on separate lines */
-  gap: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .member-count {

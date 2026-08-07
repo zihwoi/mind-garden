@@ -46,7 +46,7 @@ function getStreak(todayTasks) {
   return streak;
 }
 
-function getTotalGrowthDays() {
+function getTotalGrowthDays(todayTasks) {
   let total = 0;
 
   const today = new Date();
@@ -55,12 +55,9 @@ function getTotalGrowthDays() {
     const d = new Date(today);
     d.setDate(d.getDate() - i);
 
-    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
-      2,
-      "0",
-    )}-${String(d.getDate()).padStart(2, "0")}`;
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
-    const data = loadDay(key);
+    const data = i === 0 ? todayTasks : loadDay(key);
 
     if (data.meditation && data.dizigui && data.reflection) {
       total++;
@@ -79,7 +76,6 @@ export function useDailyTasks() {
     saveDay(todayKey, tasks);
   }, [tasks, todayKey]);
 
-
   // 2. normal functions
   const toggle = (key) => {
     setTasks((prev) => ({
@@ -88,22 +84,14 @@ export function useDailyTasks() {
     }));
   };
 
-
   // 3. calculations
   const streak = useMemo(() => {
     return getStreak(tasks);
   }, [tasks]);
 
-  const growthDays = useMemo(() => {
-    return getTotalGrowthDays();
-  }, []);
+  const growthDays = useMemo(() => getTotalGrowthDays(tasks), [tasks]);
 
-
-  const allDone =
-    tasks.meditation &&
-    tasks.dizigui &&
-    tasks.reflection;
-
+  const allDone = tasks.meditation && tasks.dizigui && tasks.reflection;
 
   // 4. return last
   return {

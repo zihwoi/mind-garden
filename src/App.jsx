@@ -5,6 +5,10 @@ import Community from "./pages/Community";
 import Welcome from "./pages/Welcome";
 import "./App.css";
 
+import todayIcon from "./assets/icons/today.png";
+import earthIcon from "./assets/icons/earth.png";
+import meIcon from "./assets/icons/me.png";
+
 function App() {
   const [user, setUser] = useState(null);
   const [screen, setScreen] = useState("home");
@@ -31,19 +35,22 @@ function App() {
           className={`nav-btn ${screen === "home" ? "active" : ""}`}
           onClick={() => setScreen("home")}
         >
-          <span>🌱</span>Today
+          <img src={todayIcon} alt="" className="nav-icon" />
+          Today
         </button>
         <button
           className={`nav-btn ${screen === "community" ? "active" : ""}`}
           onClick={() => setScreen("community")}
         >
-          <span>🌍</span>Garden
+          <img src={earthIcon} alt="" className="nav-icon" />
+          Garden
         </button>
         <button
           className={`nav-btn ${screen === "profile" ? "active" : ""}`}
           onClick={() => setScreen("profile")}
         >
-          <span>🌿</span>Me
+          <img src={meIcon} alt="" className="nav-icon" />
+          Me
         </button>
       </nav>
     </>

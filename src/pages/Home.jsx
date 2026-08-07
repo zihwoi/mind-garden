@@ -54,7 +54,7 @@ function Home({ user }) {
               <span>写心得 <br></br> Write Journal</span>
             </div>
           </div>
-          <PlantCard streak={streak} growthDays={growthDays} allDone={allDone } />
+          <PlantCard growthDays={growthDays} allDone={allDone } />
         </section>
         </SketchBox>
 

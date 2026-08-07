@@ -1,32 +1,44 @@
 import "../App.css";
 import SketchBox from "../components/SketchBox";
-import seedIdle from "../assets/illustration/seed_idle.gif";
+import { useDailyTasks } from "../hooks/useDailyTasks";
 
-const members = [
-  {
-    name: "Zi Hui",
-    streak: 12,
-    today: { med: true, dzg: true, reflection: true },
-  },
+import seedIdle from "../assets/illustration/seed_idle.gif";
+import sproutGrowing from "../assets/illustration/sprout.gif";
+
+import meditateIcon from "../assets/icons/meditate.png";
+import diziguiIcon from "../assets/icons/dizigui.png";
+import journalIcon from "../assets/icons/journal.png";
+
+function getPlantStage(days) {
+  if (days >= 7) return { img: sproutGrowing, label: "leafy" }; // swap when you have a later-stage gif
+  if (days >= 3) return { img: sproutGrowing, label: "sprout" };
+  return { img: seedIdle, label: "seed" };
+}
+
+const mockMembers = [
   {
     name: "Ming Hui",
     streak: 45,
     today: { med: true, dzg: true, reflection: true },
+    plantImg: seedIdle,
   },
   {
     name: "Elle Wong",
     streak: 3,
     today: { med: true, dzg: false, reflection: true },
+    plantImg: seedIdle,
   },
   {
     name: "Jason Boy",
     streak: 7,
     today: { med: false, dzg: true, reflection: false },
+    plantImg: seedIdle,
   },
   {
     name: "Vincent",
     streak: 89,
     today: { med: true, dzg: true, reflection: true },
+    plantImg: seedIdle,
   },
 ];
 
@@ -34,7 +46,22 @@ function countTasksDone(today) {
   return Object.values(today).filter(Boolean).length;
 }
 
-function Community() {
+function Community({ user }) {
+  const { tasks, streak, growthDays } = useDailyTasks();
+
+  const currentUser = {
+    name: user || "You",
+    streak: growthDays,
+    today: {
+      med: tasks.meditation,
+      dzg: tasks.dizigui,
+      reflection: tasks.reflection,
+    },
+    plantImg: getPlantStage(growthDays).img, // real stage-based image, just for you
+  };
+
+  const members = [currentUser, ...mockMembers];
+
   const completedToday = members.filter(
     (m) => m.today.med && m.today.dzg && m.today.reflection,
   ).length;
@@ -63,10 +90,8 @@ function Community() {
             <span className="summary-label">Completed Today</span>
           </div>
           <div className="summary-card">
-            <span className="summary-number">
-              {members.reduce((a, b) => a + b.streak, 0)}
-            </span>
-            <span className="summary-label">Total Streak Days</span>
+            <span className="summary-number">{currentUser.streak}</span>
+            <span className="summary-label">Your Growth Days</span>
           </div>
         </section>
       </SketchBox>
@@ -76,27 +101,41 @@ function Community() {
           <h2>🌻 Fellow Gardeners</h2>
           {sortedMembers.map((member) => {
             const doneCount = countTasksDone(member.today);
+
+            const completedIcons = [];
+            if (member.today.med) completedIcons.push({ src: meditateIcon, alt: "Meditated" });
+            if (member.today.dzg) completedIcons.push({ src: diziguiIcon, alt: "Di Zi Gui" });
+            if (member.today.reflection) completedIcons.push({ src: journalIcon, alt: "Self reflection" });
+
             return (
               <SketchBox key={member.name} className="sketch-box-row">
                 <div className="member-row">
-                  <span className="member-plant">
-                    <img src={seedIdle} alt="Growing seed" />
-                  </span>
-                  <div className="member-info">
-                    <span className="member-name">{member.name}</span>
-                    <span className="member-tasks">
-                      <span className="tasks-label">Watered 💧</span>
-                      <span className="tasks-count">
-                        {doneCount} {doneCount === 1 ? "time" : "times"} today
-                      </span>
+                  <div className="member-top">
+                    <span className="member-plant">
+                      <img src={member.plantImg} alt={`${member.name}'s plant`} />
                     </span>
+                    <div className="member-info">
+                      <span className="member-name">{member.name}</span>
+                      <span className="member-tasks">
+                        <span className="tasks-label">Watered 💧</span>
+                        <span className="tasks-count">
+                          {doneCount} {doneCount === 1 ? "time" : "times"} today
+                        </span>
+                      </span>
+                    </div>
                   </div>
-                  <div className="member-today">
-                    {member.today.med && <span title="Meditated">🧘</span>}
-                    {member.today.dzg && <span title="Di Zi Gui">📖</span>}
-                    {member.today.reflection && (
-                      <span title="Self reflection">✍️</span>
-                    )}
+                  <div
+                    className={`member-today-cluster cluster-count-${completedIcons.length}`}
+                  >
+                    {completedIcons.map((icon, i) => (
+                      <img
+                        key={icon.alt}
+                        src={icon.src}
+                        alt={icon.alt}
+                        title={icon.alt}
+                        className={`task-icon-cluster cluster-pos-${i + 1}`}
+                      />
+                    ))}
                   </div>
                 </div>
               </SketchBox>
